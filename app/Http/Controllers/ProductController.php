@@ -16,6 +16,7 @@ class ProductController extends Controller
         //if you not find ID _> get all data
         if (!$CatId) {
             // Get all products with pagination
+            //$Result = Product::cursorPaginate(4);
             $Result = Product::paginate(4);
             //dd($Result);
             return view('/Products.Product', ['Product' => $Result]);
