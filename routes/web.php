@@ -118,7 +118,7 @@ Route::get('/Admin/GetAllSlider', [SliderController::class,'ListSlider'])->name(
 Route::get('/Admin/AddSlider', [SliderController::class,'AddNewSlider'])->name(name:'Slider.AddNew');
 Route::post('/Admin/SaveSlider', [SliderController::class,'Save'])->name(name:'Slider.Save');
 //Update Slider
-Route::get('/Edit/{id}', [SliderController::class, 'Edit'])->name('Slider.edit');
+Route::get('Admin/Edit/{id?}', [SliderController::class, 'Edit'])->name('Slider.edit');
 //Delete
 Route::delete('/Admin/Delete/{Id}',[SliderController::class,'Delete'])->name(name:'Slider.Delete');
 
@@ -149,7 +149,7 @@ Route::get('/Admin/GetAllProductImages', [ProductImgsController::class,'GetAllPr
 Route::get('/Admin/AddImage', [ProductImgsController::class, 'AddImageForm'])->name('product.addImageForm');
 Route::post('/Admin/SaveImage', [ProductImgsController::class, 'SaveImage'])->name('product.SaveImage');
 //Update productImg
-Route::get('/Edit/{id?}', [ProductImgsController::class, 'EditProductImage'])->name('productImg.Edit');
+Route::get('/Edit/{id}', [ProductImgsController::class, 'EditProductImage'])->name('productImg.Edit');
 //Delete
 Route::delete('/DeleteImg/{Id?}',[ProductImgsController::class,'DeleteProductImage'])->name(name:'productImg.Delete');
 

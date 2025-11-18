@@ -1,51 +1,61 @@
 @extends('Shared_Layout.SharedAdminView')
   
-@section('Title') Update  @endsection
-
+@section('Title') Update Settings @endsection
 
 @section('Content')
-<form method="POST" action="{{route('Settings.Save')}}"  enctype="multipart/form-data">
+<form method="POST" action="{{ route('Settings.Save') }}" enctype="multipart/form-data">
     @csrf
-   
 
-    <input type="hidden" style="width: 100%" name="id" id="id"  value="{{ $Settings->id }}" >
+    <input type="hidden" name="id" value="{{ $Settings->id }}">
 
+    {{-- Address --}}
     <label>@lang('messages.address'):</label>
-    <input type="text"  style="width: 100%" name="address" id="address" value="{{ $Settings->address}}" >
+    <input type="text" style="width: 100%" name="address" value="{{ old('address', $Settings->address) }}">
+
+    {{-- Address Arabic --}}
     <label>@lang('messages.addressArInArabic'):</label>
-    <input type="text"  style="width: 100%" name="address_ar" id="address_ar" value="{{ $Settings->address_ar }}" >
+    <input type="text" style="width: 100%" name="address_ar" value="{{ old('address_ar', $Settings->address_ar) }}">
 
+    {{-- Phone --}}
     <label>@lang('messages.Phone'):</label>
-    <input type="text"  style="width: 100%" name="phone" id="phone" value="{{ $Settings->phone }}" >
+    <input type="text" style="width: 100%" name="phone" value="{{ old('phone', $Settings->phone) }}">
+
+    {{-- Social URLs --}}
     <label>@lang('messages.facebook_url'):</label>
-    <input type="text"  style="width: 100%" name="facebook_url" id="facebook_url" value="{{ $Settings->facebook_url }}" >
+    <input type="text" style="width: 100%" name="facebook_url" value="{{ old('facebook_url', $Settings->facebook_url) }}">
+
     <label>@lang('messages.twitter_url'):</label>
-    <input type="text"  style="width: 100%" name="twitter_url" id="twitter_url" value="{{ $Settings->twitter_url }}" >
+    <input type="text" style="width: 100%" name="twitter_url" value="{{ old('twitter_url', $Settings->twitter_url) }}">
+
     <label>@lang('messages.instagram_url'):</label>
-    <input type="text"  style="width: 100%" name="instagram_url" id="instagram_url" value="{{ $Settings->instagram_url }}" >
+    <input type="text" style="width: 100%" name="instagram_url" value="{{ old('instagram_url', $Settings->instagram_url) }}">
+
     <label>@lang('messages.linkedin_url'):</label>
-    <input type="text"  style="width: 100%" name="linkedin_url" id="linkedin_url" value="{{ $Settings->linkedin_url }}" >
+    <input type="text" style="width: 100%" name="linkedin_url" value="{{ old('linkedin_url', $Settings->linkedin_url) }}">
 
+    {{-- Email --}}
     <label>@lang('messages.email'):</label>
-    <input type="text"  style="width: 100%" name="email" id="email" value="{{ $Settings->email }}" >
+    <input type="text" style="width: 100%" name="email" value="{{ old('email', $Settings->email) }}">
 
+    {{-- About Us --}}
     <label>@lang('messages.About us'):</label>
-    <textarea style="width: 100%" name="AboutUs" id="AboutUs">{{ $Settings->AboutUs }}</textarea>
+    <textarea style="width: 100%" name="AboutUs">{{ old('AboutUs', $Settings->AboutUs) }}</textarea>
+
     <label>@lang('messages.AboutArUsInArabic'):</label>
-    <textarea style="width: 100%" name="AboutUs_ar" id="AboutUs_ar">{{ $Settings->AboutUs_ar }}</textarea>
+    <textarea style="width: 100%" name="AboutUs_ar">{{ old('AboutUs_ar', $Settings->AboutUs_ar) }}</textarea>
 
-    
+    {{-- Current Logo --}}
+    <label>@lang('messages.Current Image'):</label><br>
+    <img src="{{ asset($Settings->logo) }}" width="200" height="200"><br><br>
 
+    {{-- Optional New Logo --}}
+    <label>@lang('messages.New Image (optional)'):</label>
+    <input type="file" name="logo" class="form-control">
+    @if ($errors->has('logo'))
+        <span style="color: red;">{{ $errors->first('logo') }}</span>
+    @endif
 
-  
-  <label>@lang('messages.Current Image'):</label><br>
-    <img src="{{ asset($Settings->logo) }}" id="logo"  width="200"  height="200" ><br>
-
-    
-        <label>@lang('messages.New Image (optional)'):</label>
-        <input type="file"  id="logo" name="logo"  class="form-control"  >
-
-  <button type="submit"  class="btn btn-success">@lang('messages.UpDate')</button>
-  </form>
+    {{-- Submit Button --}}
+    <button type="submit" class="btn btn-success mt-3">@lang('messages.UpDate')</button>
+</form>
 @endsection
-

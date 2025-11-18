@@ -3,9 +3,7 @@
     Add New SliderPhoto
 @endsection
 
-
 @section('Content')
-
 
     {{-- Display all error messages --}}
     @if ($errors->any())
@@ -18,7 +16,6 @@
         </div>
     @endif
 
-
     <div class="product-section mt-150 mb-150">
         <div class="container">
             <div class="row">
@@ -28,6 +25,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-lg-12 mb-5 mb-lg-0">
                     <div id="form_status"></div>
@@ -36,59 +34,53 @@
                             enctype="multipart/form-data">
                             @csrf
 
+                            {{-- Title --}}
                             <p>
-                                {{-- name and id should be same of names on DB --}}
-                                <input type="text" style="width: 100%" placeholder=@lang('messages.Title') name="Title"
-                                    id="Title">
+                                <input type="text" style="width: 100%" placeholder="@lang('messages.Title')" name="Title"
+                                    id="Title" value="{{ old('Title') }}">
                                 @if ($errors->has('Title'))
                                     <span style="color: red;">{{ $errors->first('Title') }}</span>
                                 @endif
                             </p>
 
+                            {{-- Title Arabic --}}
                             <p>
-                                <input type="text" style="width: 100%" placeholder=@lang('messages.Title In Arabic') name="title_ar"
-                                    id="title_ar">
+                                <input type="text" style="width: 100%" placeholder="@lang('messages.Title In Arabic')" name="title_ar"
+                                    id="title_ar" value="{{ old('title_ar') }}">
                                 @if ($errors->has('title_ar'))
                                     <span style="color: red;">{{ $errors->first('title_ar') }}</span>
                                 @endif
                             </p>
 
+                            {{-- Subtitle --}}
                             <p>
-                                <input type="text" style="width: 100%" placeholder=@lang('messages.Subtitle') name="subtitle"
-                                    id="subtitle">
+                                <input type="text" style="width: 100%" placeholder="@lang('messages.Subtitle')" name="subtitle"
+                                    id="subtitle" value="{{ old('subtitle') }}">
                                 @if ($errors->has('subtitle'))
                                     <span style="color: red;">{{ $errors->first('subtitle') }}</span>
                                 @endif
                             </p>
 
+                            {{-- Subtitle Arabic --}}
                             <p>
-                                <input type="text" style="width: 100%" placeholder=@lang('messages.Subtitle In Arabic') name="subtitle_ar"
-                                    id="subtitle_ar">
+                                <input type="text" style="width: 100%" placeholder="@lang('messages.Subtitle In Arabic')" name="subtitle_ar"
+                                    id="subtitle_ar" value="{{ old('subtitle_ar') }}">
                                 @if ($errors->has('subtitle_ar'))
                                     <span style="color: red;">{{ $errors->first('subtitle_ar') }}</span>
                                 @endif
                             </p>
 
-
-
+                            {{-- Slider Image --}}
                             <p>
                                 <input type="file" name="Slider_Image" id="Slider_Image" class="form-control" required>
                                 @if ($errors->has('Slider_Image'))
                                     <span style="color: red;">{{ $errors->first('Slider_Image') }}</span>
                                 @endif
-
                             </p>
 
-                            <button type="submit" id="submitButton" class="btn btn-success">@lang('messages.Add SliderPhoto')</button>
+                            {{-- Submit Button --}}
+                            <button type="submit" class="btn btn-success">@lang('messages.Add SliderPhoto')</button>
 
-
-                            <script>
-                                document.getElementById("SliderForm").addEventListener("submit", function(event) {
-                                    event.preventDefault(); // Stop form submission
-                                    alert("SliderPhoto Added Successfully!");
-                                    this.submit(); // Submit the form after showing the message
-                                });
-                            </script>
                         </form>
                     </div>
                 </div>

@@ -12,7 +12,12 @@
     List Product
 @endsection
 
-
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    
+@endif
 
 
 @section('Content')
@@ -52,7 +57,7 @@
                         <td>{{ $Pro->created_at }}</td>
                         <td>{{ $Pro->updated_at }}</td>
                         @auth
-                            @if (Auth::user()->role === 'superadmin')
+                            @if (Auth::user()->role === 'superadmin' || Auth::user()->role === 'admin')
                                 <td>
                                     <a href="{{ route('product.edit', $Pro->id) }}"
                                         class="btn btn-primary">@lang('messages.Edit')</a>

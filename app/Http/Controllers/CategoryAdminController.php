@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Validation\Rule;
 
 class CategoryAdminController extends Controller
 {
     public function ListCategory()
     {
-       
+
         $Result = Category::latest()->get();
         //dd($Result);
         return view('Admin.Category.List', ['category' => $Result]);
@@ -18,7 +19,7 @@ class CategoryAdminController extends Controller
     //Add New Product
     public function AddNewCategory()
     {
-        
+
         return view('Admin.Category.AddNew');
         //dd($Result);
     }
@@ -27,7 +28,7 @@ class CategoryAdminController extends Controller
     public function Edit($id)
     {
         $Categories = Category::findOrFail($id);
-       
+
         return view('Admin.Category.Update', compact('Categories'));
     }
 
@@ -36,7 +37,8 @@ class CategoryAdminController extends Controller
     public function Save(Request $request)
     {
         $request->validate([
-            'category_name' => ['required','max:30'],
+
+            'category_name' => 'required|unique:categories|max:30',
             'CategoryNameAr' => ['required', 'max:30'],
             'DescriptionAr' => ['required', 'max:255'],
             'description' => 'required',
@@ -67,7 +69,7 @@ class CategoryAdminController extends Controller
 
         //Save product State
         else {
-            $imagePath ='';
+            $imagePath = '';
             // Check if an image is uploaded
             if ($request->hasFile('image_name')) {
                 $image = $request->file('image_name');
@@ -80,7 +82,7 @@ class CategoryAdminController extends Controller
 
                 // Store the image path (relative to public folder)
                 $imagePath = 'Uploads/Categories/' . $imageName;
-            } 
+            }
 
             $NewCategory = new Category();
             $NewCategory->category_name = $request->category_name;

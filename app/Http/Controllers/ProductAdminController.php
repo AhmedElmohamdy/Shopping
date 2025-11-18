@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\product;
 use App\Models\Category;
+use Illuminate\Validation\Rule;
 
 class ProductAdminController extends Controller
 {
@@ -13,13 +14,13 @@ class ProductAdminController extends Controller
         $Result = product::with('category')->get();
         $Result1 = Category::all();
         //dd($Result);
-        return view('Admin.Product.List', ['Product' => $Result,'category' => $Result1]);
+        return view('Admin.Product.List', ['Product' => $Result, 'category' => $Result1]);
     }
 
-   
+
 
     //Edit
-    public function Edit($id= null)
+    public function Edit($id = null)
     {
         $categories = Category::all();
         $product = Product::findOrFail($id);
@@ -28,7 +29,7 @@ class ProductAdminController extends Controller
 
 
 
-     //Add New Product
+    //Add New Product
     public function AddNewProduct()
     {
         $categories = Category::all();
@@ -40,12 +41,16 @@ class ProductAdminController extends Controller
     public function Save(Request $request)
     {
         $request->validate([
-            'product_name' => ['required','max:30'],
-            'ProdactNameAr' => ['required', 'max:30'],
-            'DescriptionAr' => ['required', 'max:255'],
-            'product_price' => ['required', 'numeric'],
-            'product_quantity' => ['required', 'numeric'],
-            'image_name' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'product_name' => [
+                'required',
+                'max:30',
+                Rule::unique('products', 'product_name')->ignore($request->id)
+            ],
+            'ProdactNameAr' => 'required|max:30',
+            'DescriptionAr' => 'required|max:255',
+            'product_price' => 'required|numeric',
+            'product_quantity' => 'required|numeric',
+            'image_name' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'required',
             'cat_id' => 'required',
         ]);
@@ -77,7 +82,7 @@ class ProductAdminController extends Controller
 
         //Save product State
         else {
-            $imagePath ='';
+            $imagePath = '';
             // Check if an image is uploaded
             if ($request->hasFile('image_name')) {
                 $image = $request->file('image_name');
@@ -90,7 +95,7 @@ class ProductAdminController extends Controller
 
                 // Store the image path (relative to public folder)
                 $imagePath = 'Uploads/products/' . $imageName;
-            } 
+            }
 
             $NewProduct = new product();
             $NewProduct->product_name = $request->product_name;
@@ -108,12 +113,10 @@ class ProductAdminController extends Controller
         }
     }
 
-    public function Delete($Pro_Id= null)
+    public function Delete($Pro_Id = null)
     {
         $CurrentProduct = Product::findOrFail($Pro_Id);
         $CurrentProduct->delete();
         return redirect()->route(route: 'Admin.GetProduct', parameters: $Pro_Id);
     }
-
-   
 }

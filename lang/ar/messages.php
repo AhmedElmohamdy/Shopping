@@ -28,6 +28,7 @@ return [
     'Add New Prodect images' => 'إضافة صور جديدة للمنتج',
     'Select Product' => 'اختر المنتج',
     'Add ProductImges' => 'إضافة صور المنتج',
+    'Add ProductImges' => 'إضافة صور المنتج',
     'AddProductPhotos' => 'إضافة صور للمنتج',
     'Id' => 'المعرف',
     'Product Name' => 'اسم المنتج',

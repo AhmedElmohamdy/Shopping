@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Illuminate\Validation\Rule;
 
 class SettingsController extends Controller
 {
@@ -49,7 +50,8 @@ class SettingsController extends Controller
     public function Save(Request $request)
     {
         $request->validate([
-            'address' => ['max:50'],
+            'address' => 'required|unique:setting|max:50',
+            'address_ar' => ['max:100'], // Add Arabic address validation
             'logo' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'phone' => ['max:13'],
             'facebook_url' => ['max:100'],
@@ -57,6 +59,7 @@ class SettingsController extends Controller
             'instagram_url' => ['max:100'], 
             'linkedin_url' => ['max:100'],
             'AboutUs' => ['max:500'], // Add about_us validation
+            'AboutUs_ar' => ['max:500'], // Add Arabic about_us validation
             'email' => ['nullable', 'email', 'max:255'], // Add email validation
             
         ]);

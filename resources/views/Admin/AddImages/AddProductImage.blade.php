@@ -64,13 +64,7 @@
                             <button type="submit" id="submitButton" class="btn btn-success">@lang('messages.Add ProductImg')</button>
 
 
-                            <script>
-                                document.getElementById("ProductForm").addEventListener("submit", function(event) {
-                                    event.preventDefault(); // Stop form submission
-                                    alert("Product Added Successfully!");
-                                    this.submit(); // Submit the form after showing the message
-                                });
-                            </script>
+                            
                         </form>
                     </div>
                 </div>
